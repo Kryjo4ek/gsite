@@ -1,0 +1,13 @@
+{% extends 'top.html' %}
+{% load staticfiles %}
+
+{% block votes %}
+
+{% for vote in votes %}
+    <h2>{{ vote.vote_question }}</h2>
+
+    {% for answer in vote.answer_set.all %}
+        <p> {{ answer.vote_answer }} <img src="{% static "Hello_Kitty.png" %}" width="20px" height="20px"> <b>кол-во голосов</b> {{ answer.vote_number }}</p>
+    {% endfor %}
+{% endfor %}
+{% endblock %}

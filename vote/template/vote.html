@@ -1,0 +1,24 @@
+{% extends 'top.html' %}
+{% load staticfiles %}
+
+{% block votes %}
+<form action="vote/answer/" method="post">
+{% csrf_token %}
+
+
+{% for vote in votes %}
+
+    <p>{{ vote.vote_time }}</p>
+    <h2><a href="/votes/get/{{ vote.id }}/"> {{ vote.vote_question }}</a></h2>
+
+    {% for answer in vote.answer_set.all %}
+        <label><input type="radio" name = "{{ vote.id }}" value="{{ answer.id }}">{{ answer.vote_answer }} </label>
+
+    {% endfor %}
+    <p><a href="/like/add/{{ vote.id }}/">This question like {{ vote.vote_like }} kitty<img src="{% static "Hello_Kitty.png" %}" width="20px" height="20px"></a></p>
+    <p><img src="{% static "line.png" %}" width="500px" height="1px" ></p>
+
+    {% endfor %}
+    <input type="submit" value="ответить">
+</form>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'top.html' %}
+
+{% block login %}
+    <div class="large-offset-3 large-6 columns">
+        <form action="/auth/login/" method ="POST">
+            {% csrf_token %}
+            <label for="username">Name user</label>
+            <input type="text" name="username" id="username">
+            <label for="password">password</label>
+            <input type="password" name="password" id="password">
+            {% if login_error %}
+                <label class="error">{{ login_error}}</label>
+            {% endif %}
+            <input class="button" type="submit" value="login">
+            <div class="label round secondary"><a href="/auth/register/">Register</a></div>
+        </form>
+    </div>
+{% endblock %}

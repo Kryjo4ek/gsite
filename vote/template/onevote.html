@@ -1,0 +1,40 @@
+{% extends 'top.html' %}
+{% load staticfiles %}
+
+{% block votes %}
+
+
+    <h1>{{ vote.vote_question }}</h1>
+
+
+    {% for answer in answers %}
+
+        <p>{{ answer.vote_answer }}</p>
+
+    {% endfor %}
+<div class="row">
+    <div class="large-3 large-offset-5 columns">
+        <ul class="pagination">
+            {% if answers.has_previous %}
+                <li class="arrow"><a href="/page/{{ vote.id }}/{{ answers.previous_page_number }}/">&laquo;</a></li>
+            {% else %}
+                <li class="arrow unavailable"><a href="">&laquo;</a></li>
+            {% endif %}
+            {% for page in answers.paginator.page_range %}
+                {% if page == answers.number %}
+                    <li class="current"><a href="/page/{{ vote.id }}/{{ page }}/">{{ page }}</a></li>
+                {% else %}
+                    <li><a href="/page/{{ vote.id }}/{{ page }}/">{{ page }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>
+    <form action="/vote/addcomment/{{ vote.id }}/" method="post">
+
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="button" value="add answer">
+    </form>
+{% endblock %}
